@@ -29,10 +29,9 @@ classifiers = [
   "Programming Language :: Python :: 3 :: Only",
 ]
 
-dependencies = ["huggingface_hub", "sentence-transformers", "faiss-cpu"]
+dependencies = ["huggingface_hub", "sentence-transformers", "faiss-cpu", "numpy", "pymongo", "tqdm"]
 
 [project.optional-dependencies]
-dev = [""]
 test = ["pytest"]
 data = ["kagglehub"]
 
