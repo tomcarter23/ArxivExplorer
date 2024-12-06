@@ -22,7 +22,7 @@ class DataHandler:
         self.dataset_path = dataset_path
         self.embedding_model = SentenceTransformer(embedding_model)
         vector_dimension = self.embedding_model.get_sentence_embedding_dimension()
-        self.faiss_index = faiss.IndexIDMap(faiss.IndexFlatL2(vector_dimension))
+        self.faiss_index = faiss.IndexIDMap(faiss.IndexFlatIP(vector_dimension))
 
         self.mongo_db = mongo_client["arxivdb"]
         self.mongo_collection = self.mongo_db["arxivcol"]
