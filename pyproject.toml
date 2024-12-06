@@ -29,7 +29,7 @@ classifiers = [
   "Programming Language :: Python :: 3 :: Only",
 ]
 
-dependencies = ["huggingface_hub", "sentence-transformers", "faiss-cpu", "numpy", "pymongo", "tqdm"]
+dependencies = ["sentence-transformers", "faiss-cpu", "numpy", "pymongo", "tqdm"]
 
 [project.optional-dependencies]
 test = ["pytest"]
