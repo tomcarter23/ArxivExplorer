@@ -49,7 +49,6 @@ class DataHandler:
         embedding = self.get_embedding_vector(input_data[attribute_to_encode])
         self.faiss_index.add_with_ids(embedding, np.array([i]))
         input_data["faiss_id"] = i
-        print("inserting mongo")
         self.mongo_collection.insert_one(input_data)
 
     def process_and_save(self, index_path: str, attribute_to_encode: str = "abstract") -> None:
@@ -68,6 +67,17 @@ def setup_logging(level: str):
     handler.setFormatter(formatter)
     logger.addHandler(handler)
     logger.setLevel(level)
+
+
+def process_and_save(dataset_path: str, embedding_model: SentenceTransformer, faiss_index: faiss.Index, mongo_collection: Collection, num_to_proces: int = -1, index_path: str = "./faiss_index.faiss") -> None:
+    dh = DataHandler(
+        dataset=dataset_path,
+        embedding_model=embedding_model,
+        faiss_index=faiss_index,
+        mongo_collection=mongo_collection,
+        num_to_proces=num_to_proces,
+    )
+    dh.process_and_save(index_path=index_path)
 
 
 def main() -> None:
@@ -94,15 +104,15 @@ def main() -> None:
     faiss_index = faiss.IndexIDMap(faiss.IndexFlatL2(embedding_model.get_sentence_embedding_dimension()))
     mongo_client = MongoClient("mongodb://localhost:27017/")
     mongo_collection = mongo_client["arxivdb"]["arxivcol"]
+    dataset_path = "/Users/tomcarter/.cache/kagglehub/datasets/Cornell-University/arxiv/versions/207/arxiv-metadata-oai-snapshot.json"
 
-    dh = DataHandler(
-        dataset=dataset_path,
+    process_and_save(
+        dataset_path=dataset_path,
         embedding_model=embedding_model,
         faiss_index=faiss_index,
         mongo_collection=mongo_collection,
         num_to_proces=int(args.n),
     )
-    dh.process_and_save(index_path="./faiss_index.faiss")
 
 
 if __name__ == "__main__":
