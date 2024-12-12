@@ -1,0 +1,19 @@
+services:
+  mongo-clean:
+    image: mongo:4.4.18
+    profiles:
+      - e2e
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "username"
+      MONGO_INITDB_ROOT_PASSWORD: "password"
+
+  e2e-tests-process:
+    profiles:
+      - e2e
+    build:
+      context: .
+      dockerfile: Dockerfile.e2e.process
+    environment:
+      MONGODB_URL: "mongodb://username:password@mongo-clean:27017/default?authSource=admin"
+    depends_on:
+      - mongo-clean

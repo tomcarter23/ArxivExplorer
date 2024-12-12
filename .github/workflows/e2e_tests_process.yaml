@@ -1,0 +1,30 @@
+name: e2e tests process
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install docker-compose -y
+      - name: Verify Docker Compose installation
+        run: docker-compose --version
+      - name: Run Tests
+        run: |
+          make e2e_tests_process
