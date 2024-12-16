@@ -22,4 +22,4 @@ services:
     volumes:
       - ./input_data:/data/input_data
       - ./output_data:/data/output_data
-    command: ["-d", "/data/input_data/arxiv-metadata-oai-snapshot.json", "-n", "100", "-fo", "/data/output_data/faiss_index.faiss", "-do", "/data/output_data/collection.json", "--log", "DEBUG"]
+    command: $PROCESS_ARGS
