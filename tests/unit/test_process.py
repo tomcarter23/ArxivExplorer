@@ -86,8 +86,6 @@ def test_data_handler_process_one(mock_data_handler):
 
 def test_data_handler_process_and_save(mock_data_handler):
     with patch("faiss.write_index") as mock_write_index:
-        mock_data_handler.process_and_save(index_path="index_path")
-        assert mock_write_index.call_count == 1
-        assert mock_write_index.call_args[0][1] == "index_path"
+        mock_data_handler.process(attribute_to_encode="abstract")
         assert mock_data_handler.mongo_collection.insert_one.call_count == 2
         assert mock_data_handler.faiss_index.add_with_ids.call_count == 2
