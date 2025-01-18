@@ -7,9 +7,6 @@ on:
         description: 'Version Tag'
         required: true
         default: 'v0'
-  pull_request:
-    branches:
-      - '*'
 
 jobs:
   run-process:
