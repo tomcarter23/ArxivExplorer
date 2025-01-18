@@ -1,7 +1,11 @@
 name: process
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      versionTag:
+        description: 'Version Tag'
+        required: true
   pull_request:
     branches:
       - '*'
@@ -46,5 +50,5 @@ jobs:
           aws_key_id: ${{ secrets.AWS_S3_ACCESS_KEY }}
           aws_secret_access_key: ${{ secrets.AWS_S3_SECRET_ACCESS_KEY}}
           aws_bucket: ${{ secrets.AWS_S3_BUCKET }}
-          source_dir: 'output_data'
-          destination_dir: 'abstract_store/v1'
+          source_dir: output_data
+          destination_dir: abstract_store/${{ github.event.inputs.versionTag }}
