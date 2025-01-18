@@ -40,6 +40,10 @@ jobs:
         run: |
           make download_data
 
+      - name: ls data
+        run: |
+          ls ./input_data
+
       - name: Run process
         run: |
           make process_example
