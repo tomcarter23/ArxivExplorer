@@ -8,6 +8,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: "password"
     volumes:
       - ./output_data:/data/output_data
+    command: --logpath /dev/null
 
   run-process:
     profiles:
