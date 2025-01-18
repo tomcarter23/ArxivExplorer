@@ -6,6 +6,7 @@ on:
       versionTag:
         description: 'Version Tag'
         required: true
+        default: 'v0'
   pull_request:
     branches:
       - '*'
