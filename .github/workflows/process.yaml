@@ -26,6 +26,11 @@ jobs:
       - name: Verify Docker Compose installation
         run: docker-compose --version
 
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[data]"
+
       - name: Download Kaggle data
         run: |
           make download_data
