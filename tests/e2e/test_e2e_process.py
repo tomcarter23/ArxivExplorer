@@ -4,7 +4,7 @@ from sentence_transformers import SentenceTransformer
 import faiss
 import json
 
-from arxiv_explorer.process import process_and_save
+from arxiv_explorer.process import process
 
 MONGODB_URL = os.getenv("MONGODB_URL")
 
@@ -16,12 +16,13 @@ def test_e2e_process():
     mongo_collection = mongo_client["arxivdb"]["arxivcol"]
     dataset_path = "./tests/e2e/data/arxiv-metadata-oai-sample.json"
 
-    process_and_save(
+    _ = process(
         dataset_path=dataset_path,
         embedding_model=embedding_model,
         faiss_index=faiss_index,
         mongo_collection=mongo_collection,
         num_to_proces=50,
+        attribute_to_encode="abstract",
     )
     with open(dataset_path, "r") as f:
         file_entries = [json.loads(line) for line in f]
