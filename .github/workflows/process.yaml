@@ -48,7 +48,7 @@ jobs:
         run: |
           make process_example
 
-      - uses: parth-paradkar/s3-upload-action-without-acl@master
+      - uses: shallwefootball/s3-upload-action@master
         name: Upload S3
         id: S3
         with:
