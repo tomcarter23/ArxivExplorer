@@ -26,7 +26,7 @@ jobs:
         with:
           mode: start
           github-token: ${{ secrets.AWS_EC2_PAT }}
-          ec2-image-id: i-01f7ee8ff9e8b06dd
+          ec2-image-id: ami-09b1bb9da92aaaff5
           ec2-instance-type: t2.micro
           subnet-id: subnet-068126682897c1839
           security-group-id: sg-07858ca234131116e
