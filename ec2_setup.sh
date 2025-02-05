@@ -1,7 +1,7 @@
-sudo yum update -y && \
-sudo yum install docker -y && \
-sudo yum install git -y && \
-sudo yum install libicu -y && \
+sudo apt-get update -y && \
+sudo apt-get install docker-compose -y && \
+sudo apt-get install git -y && \
+sudo apt-get install libicu -y && \
 sudo systemctl enable docker
 
 # set swap on
