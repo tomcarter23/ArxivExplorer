@@ -26,10 +26,11 @@ jobs:
         with:
           mode: start
           github-token: ${{ secrets.AWS_EC2_PAT }}
-          ec2-image-id: ami-09b1bb9da92aaaff5
+          #ec2-image-id: ami-09b1bb9da92aaaff5
           ec2-instance-type: t2.micro
           subnet-id: subnet-081f16c1adb4f61ac
           security-group-id: sg-07858ca234131116e
+          pre-runner-script: source ec2_setup.sh
   process:
     name: Do the job on the runner
     needs: start-runner # required to start the main job when the runner is ready
