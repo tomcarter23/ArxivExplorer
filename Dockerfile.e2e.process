@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY ./pyproject.toml ./pyproject.toml
 COPY ./arxiv_explorer ./arxiv_explorer
+COPY ./api	./api
 COPY ./tests ./tests
 
 RUN pip install -e .[test]

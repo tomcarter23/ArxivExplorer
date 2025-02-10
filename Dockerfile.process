@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY ./pyproject.toml ./pyproject.toml
 COPY ./arxiv_explorer ./arxiv_explorer
-
+COPY ./api	./api
 RUN pip install -e .
 
 ENTRYPOINT ["python", "arxiv_explorer/process.py"]
