@@ -26,7 +26,7 @@ app = FastAPI(lifespan=lifespan)
 
 
 class Retrieve(BaseModel):
-    query: str
+    query: str = Field(default="Enter your query here")
     k: int = Field(default=5, gt=0)
 
 

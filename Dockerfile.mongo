@@ -1,0 +1,15 @@
+FROM mongo:4.4.18
+
+WORKDIR /app
+
+COPY ./output_data/collection.json /collection.json
+COPY ./init_mongo.sh /init_mongo.sh
+
+# Ensure init-mongo.sh script is executable
+RUN chmod +x /init_mongo.sh
+
+ENV MONGO_INITDB_ROOT_USERNAME=username
+ENV MONGO_INITDB_ROOT_PASSWORD=password
+
+# Run MongoDB and create the user, restart with authentication enabled
+CMD ["sh", "-c", "/init_mongo.sh $MONGO_INITDB_ROOT_USERNAME $MONGO_INITDB_ROOT_PASSWORD"]
