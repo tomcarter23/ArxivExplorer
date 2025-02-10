@@ -10,6 +10,7 @@ import argparse
 from sentence_transformers import SentenceTransformer
 
 from arxiv_explorer.mongo_utils import collection_to_json
+from .logging_utils import setup_logging
 
 logger = logging.getLogger(__name__)
 
@@ -63,14 +64,6 @@ class DataHandler:
             self.process_one(input_data, i, attribute_to_encode)
 
         return self.faiss_index
-
-
-def setup_logging(level: str):
-    handler = logging.StreamHandler()
-    formatter = logging.Formatter("%(asctime)s:%(name)s:%(levelname)s\t%(message)s")
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-    logger.setLevel(level)
 
 
 def process(
@@ -129,7 +122,7 @@ def main() -> None:
 
     args = parser.parse_args()
 
-    setup_logging(level=args.log)
+    setup_logging(level=args.log, logger=logger)
 
     embedding_model = SentenceTransformer(args.transformer)
     faiss_index = faiss.IndexIDMap(

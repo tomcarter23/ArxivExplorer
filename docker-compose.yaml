@@ -1,0 +1,31 @@
+services:
+  mongo-full:
+    build:
+      context: .
+      dockerfile: Dockerfile.mongo
+    profiles:
+      - api
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "username"
+      MONGO_INITDB_ROOT_PASSWORD: "password"
+    ports:
+      - 27017:27017
+
+  api-service:
+    profiles:
+      - api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      MONGODB_URL: "mongodb://username:password@mongo-full:27017/arxivdb?authSource=admin"
+    depends_on:
+      - mongo-full
+    ports:
+      - 80:80
+    healthcheck:
+      test: ["CMD", "mongo", "mongodb://username:password@mongo-full:27017/arxivdb?authSource=admin", "--eval", "db.runCommand('ping').ok == 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s

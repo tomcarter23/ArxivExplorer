@@ -5,8 +5,10 @@ WORKDIR /app
 COPY ./pyproject.toml ./pyproject.toml
 COPY ./arxiv_explorer ./arxiv_explorer
 COPY ./api	./api
-COPY ./tests ./tests
+COPY ./output_data/faiss_index.faiss ./faiss_index.faiss
 
-RUN pip install -e .[test]
+RUN pip install -e ".[api]"
 
-CMD ["python", "tests/e2e/e2e.py", "-v"]
+ENV PYTHONPATH=./
+
+CMD ["python", "api/api.py"]
